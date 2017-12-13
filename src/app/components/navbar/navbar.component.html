@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-sm mb-40 fixed-top">
+  <div class="container">
+
+    <a class="navbar-brand font-weight-bold" [routerLink]="['/home']" (click)="toggleIfOpen()">
+      C-Manager
+    </a>
+
+    <!-- Toggler -->
+    <button (click)="toggleCollapse()" class="navbar-toggler" type="button" data-toggle="collapse">
+      <span class="navbar-toggler-icon">
+        T
+      </span>
+    </button>
+
+    <div class="collapse navbar-collapse" [collapse]="isCollapsed">
+        
+      <!-- left list -->
+      <ul class="navbar-nav mr-auto mt-lg-0">
+
+        <!-- Customers -->
+        <li class="nav-item" routerLinkActive="customers" (click)="toggleIfOpen()">
+          <a class="nav-link" [routerLink]="['/customers']">
+            Customers
+          </a>
+        </li>
+
+      </ul>
+
+      <!-- right list -->
+      <ul class="navbar-nav mt-lg-0">
+        <!-- Logged in or not  -->
+        <li class="nav-item" dropdown *ngIf="appUser; else notlogged">
+          <a class="nav-link dropdown-toggle" dropdownToggle>
+            {{ appUser.name }}
+          </a>
+          <ul *dropdownMenu class="dropdown-menu left-auto">
+            <li class="nav-item" (click)="logout()">
+              <a class="nav-link">
+                Log Out
+              </a>
+            </li>
+          </ul>
+        </li>
+        <ng-template #notlogged>
+          <li class="nav-item" routerLinkActive="login" (click)="toggleIfOpen()">
+            <a class="nav-link" [routerLink]="['/login']">
+              Log In
+            </a>
+          </li>
+        </ng-template>
+      </ul>
+
+    </div>
+  </div>
+</nav>
