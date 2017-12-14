@@ -9,15 +9,22 @@ import { BsDropdownModule, CollapseModule } from 'ngx-bootstrap';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { CustomerDetailComponent } from './components/customer-detail/customer-detail.component';
+import { CustomerFormComponent } from './components/customer-form/customer-form.component';
 import { CustomersComponent } from './components/customers/customers.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { AuthGuard } from './services/auth.guard';
 import { AuthService } from './services/auth.service';
+import { CustomerService } from './services/customer.service';
 import { DbService } from './services/db.service';
 import { UserService } from './services/user.service';
-import { AuthGuard } from './services/auth.guard';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { CustomerFormPageComponent } from './components/customer-form-page/customer-form-page.component';
+import { CustomersTableViewComponent } from './components/customers-table-view/customers-table-view.component';
+import { CustomersCardViewComponent } from './components/customers-card-view/customers-card-view.component';
+import { CustomerCardComponent } from './components/customer-card/customer-card.component';
 
 
 @NgModule({
@@ -27,13 +34,20 @@ import { AuthGuard } from './services/auth.guard';
     NavbarComponent,
     CustomersComponent,
     CustomerDetailComponent,
+    CustomerFormComponent,
+    CustomerFormPageComponent,
     LoginComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    CustomersTableViewComponent,
+    CustomersCardViewComponent,
+    CustomerCardComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFireDatabaseModule,    
+    FormsModule,
+    ReactiveFormsModule,
     CollapseModule.forRoot(),
     BsDropdownModule.forRoot(),
     BrowserModule,
@@ -54,14 +68,26 @@ import { AuthGuard } from './services/auth.guard';
         pathMatch: 'full'
       },
       {
-        path: 'customers', 
-        component: CustomersComponent, 
+        path: 'customers/new', 
+        component: CustomerFormPageComponent, 
         canActivate: [AuthGuard],
         pathMatch: 'full'
       },
       {
-        path: 'customers/:id', 
-        component: CustomerDetailComponent, 
+        path: 'customers/edit/:id', 
+        component: CustomerFormPageComponent, 
+        canActivate: [AuthGuard],
+        pathMatch: 'full'
+      },
+      {
+        path: 'customers/details/:id', 
+        component: CustomerDetailComponent,
+        canActivate: [AuthGuard],
+        pathMatch: 'full'
+      },
+      {
+        path: 'customers', 
+        component: CustomersComponent, 
         canActivate: [AuthGuard],
         pathMatch: 'full'
       },
@@ -76,6 +102,7 @@ import { AuthGuard } from './services/auth.guard';
     AuthService,
     UserService,
     DbService,
+    CustomerService,
     AuthGuard
   ],
   bootstrap: [AppComponent]

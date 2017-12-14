@@ -188,6 +188,51 @@ button {
   margin-bottom: 40px;
 }
 
+.mb-20 {
+  margin-bottom: 20px;
+}
+
 .m-20 {
   margin: 20px;
+}
+
+.bg-primary {
+  background-color: $primary !important;
+}
+.text-primary {
+  color: $primary !important;
+}
+.border-primary {
+  border-color: $primary !important;
+}
+
+.text-light {
+  color: $light;
+}
+
+.text-dark {
+  color: $dark !important;
+}
+
+.link-light {
+  color: $light;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.hover-primary-hover:hover {
+  color: $primary-hover;
+}
+
+
+//==================================
+// Queries
+//==================================
+
+@media (min-width: 768px) {
+  .container {
+      max-width: 900px;
+  }
 }

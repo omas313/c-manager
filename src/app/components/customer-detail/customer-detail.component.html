@@ -1,5 +1,13 @@
 
 <div class="content-wrapper">
   <h1>Customer Details</h1>
+
+  <ng-container *ngIf="customer$ | async as customer">
+    <p class="card-text">{{ customer.fullName }}</p>
+    <p class="card-text">{{ customer.gender }}</p>
+    <p class="card-text">{{ customer.address }}</p>
+    <p class="card-text">{{ customer.city }}</p> 
+  </ng-container>
+
 </div>
   

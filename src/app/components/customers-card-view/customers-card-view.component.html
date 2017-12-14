@@ -1,0 +1,9 @@
+
+<div class="row" *ngIf="customers && customers.length > 0">
+  <div 
+    class="col-md-4 col-sm-6 col-xs-2 mb-20"
+    *ngFor="let i of paginatedIndices; let t = index"
+  >
+    <app-customer-card [customer]="customers[i]"></app-customer-card>
+  </div>
+</div>

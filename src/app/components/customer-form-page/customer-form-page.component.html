@@ -1,0 +1,26 @@
+
+<div class="content-wrapper">
+    
+      <h1>Add a new customer</h1>
+      
+      <!-- 2 columns -->
+      <div class="row">
+        <!-- form -->
+        <div class="col">
+          <app-customer-form 
+            *ngIf="customer"
+            [customer]="customer" 
+            (submit)="submit($event)"
+          >
+          </app-customer-form>
+        </div>
+    
+        <!-- card display -->
+        <div class="col">
+          {{ customer | json}}
+        </div>
+    
+      </div> <!-- row -->
+    
+    </div>
+    

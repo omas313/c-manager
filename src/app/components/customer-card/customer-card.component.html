@@ -1,0 +1,16 @@
+
+<div class="card border-primary mb-10" style="max-width: 20rem;">
+  <div class="card-header bg-primary text-light">
+    <h5 class="card-title">
+      <a class="link-light hover-primary-hover"
+        [routerLink]="['/customers/details', customer.key]"
+      >
+        {{ customer.fullName | titlecase }}
+      </a>
+    </h5>
+  </div>
+  <div class="card-body text-dark">
+    <p class="card-text">{{ customer.address }}</p>
+    <p class="card-text">{{ customer.city }}</p>
+  </div>
+</div>

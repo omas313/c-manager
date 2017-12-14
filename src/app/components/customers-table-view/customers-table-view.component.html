@@ -1,0 +1,33 @@
+
+<table class="table table-custom-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>
+        First Name
+      </th>
+      <th>
+        Last Name
+      </th>
+      <th>
+        Address
+      </th>
+      <th>
+        City
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody *ngIf="customers && customers.length > 0">
+    <tr *ngFor="let i of paginatedIndices; let t = index">
+      <td>{{ t + 1 + (currentPage - 1 ) * pageLimit}}</td>
+      <td>{{ customers[i].firstName | titlecase }}</td>
+      <td>{{ customers[i].lastName | titlecase }}</td>
+      <td>{{ customers[i].address }}</td>
+      <td>{{ customers[i].city }}</td>
+      <td>
+        <a [routerLink]="['/customers/details', customers[i].key]">View</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
