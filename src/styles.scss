@@ -5,15 +5,15 @@
 // Theme variables
 //==================================
 
-$custom-black: #04202c;
-$light: #c9d1c8;
-$light-hover: #dce4dc;
-$primary: #5b7065;
-$primary-hover: #688073;
-$dark: #304040;
-$dark-hover: #384b4b;
-$accent: #B23224;
-$accent-hover: rgb(155, 32, 20);
+$custom-black: #0f1b07;
+$light: #fafafa;
+$light-hover: #d8d7d7;
+$primary: #5c821a;
+$primary-hover: rgb(138, 189, 44);
+$dark: #0f1b07;
+$dark-hover: rgb(59, 95, 32);
+$accent: #c6d166;
+$accent-hover: #dae670;
 $muted: #999;
 $shadow: rgba(30, 31, 38, 0.1);
 $table-border: #c7defd;
@@ -37,23 +37,27 @@ body {
 
 nav, 
 .dropdown-menu {
-  background: $dark;
-  color: $light;
+  background: $light;
+  color: $dark;
+
+  -webkit-box-shadow: 0px 1px 2px 1px $shadow;
+  -moz-box-shadow: 0px 1px 2px 1px $shadow;
+  box-shadow: 0px 1px 2px 1px $shadow;
 }
 
 .navbar-brand,
 .navbar-nav .nav-link,
 nav li {
-  color: $light;
+  color: $dark;
 }
 
 .navbar-nav .nav-link:focus, 
 .navbar-nav .nav-link:hover {
-  color: $light-hover;
+  color: $primary;
 }
 
 .navbar-toggler {
-  color: $light;
+  color: $dark;
 
   &:focus {
     border: none;
@@ -78,7 +82,7 @@ li[dropdown] {
 
   &:hover,
   li:hover {
-    color: $light-hover;
+    color: $primary;
   }
   
 }
@@ -96,10 +100,94 @@ button {
 }
 
 
+.btn-primary {
+  background-color: $primary;
+  border-color: $primary;
+  color: $light;
+  
+  &:hover {
+    background-color: $primary-hover;
+    border-color: $primary-hover;
+  }
+  
+  &:not([disabled]):not(.disabled):active, 
+  &:not([disabled]):not(.disabled).active, 
+  .show > &.dropdown-toggle,
+  &:focus, 
+  &.focus {
+    box-shadow: 0 0 0 0.2rem rgba(138, 189, 44, 0.5);
+  }
+  
+  &:not([disabled]):not(.disabled):active, 
+  &:not([disabled]):not(.disabled).active, 
+  .show > &.dropdown-toggle {
+    background-color: $primary-hover;
+    border-color: $primary-hover;
+  }
+}
+
+.btn-secondary {
+  background-color: $accent;
+  border-color: $accent;
+  color: $light;
+  
+  &:hover {
+    background-color: $accent-hover;
+    border-color: $accent-hover;
+  }
+  
+  &:not([disabled]):not(.disabled):active, 
+  &:not([disabled]):not(.disabled).active, 
+  .show > &.dropdown-toggle,
+  &:focus, 
+  &.focus {
+    box-shadow: 0 0 0 0.2rem rgba(138, 189, 44, 0.5);
+  }
+  
+  &:not([disabled]):not(.disabled):active, 
+  &:not([disabled]):not(.disabled).active, 
+  .show > &.dropdown-toggle {
+    background-color: $accent-hover;
+    border-color: $accent-hover;
+  }
+}
+
+.btn-default {
+  background-color: $dark;
+  border-color: $dark;
+  color: $light;
+  
+  &.highlighted,
+  &:hover {
+    background-color: $dark-hover;
+    border-color: $dark-hover;
+  }
+  
+  &:not([disabled]):not(.disabled):active, 
+  &:not([disabled]):not(.disabled).active, 
+  .show > &.dropdown-toggle,
+  &:focus, 
+  &.focus {
+    box-shadow: 0 0 0 0.2rem rgba(59, 95, 32, 0.5);
+  }
+  
+  &:not([disabled]):not(.disabled):active, 
+  &:not([disabled]):not(.disabled).active, 
+  .show > &.dropdown-toggle {
+    background-color: $dark-hover;
+    border-color: $dark-hover;
+  }
+}
+
+
 //==================================
 // Utilities
 //==================================
 
 .mb-40 {
   margin-bottom: 40px;
+}
+
+.m-20 {
+  margin: 20px;
 }
