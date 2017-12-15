@@ -8,7 +8,7 @@ export class Customer {
   address: string;
   city: string;
 
-  constructor(dbCustomer: any) {
+  constructor(dbCustomer: any = {}) {
     this.key = dbCustomer.key || "";
     this.firstName = dbCustomer.firstName || "";
     this.lastName = dbCustomer.lastName || "";
@@ -20,4 +20,15 @@ export class Customer {
   get fullName(): string {
     return `${this.firstName} ${this.lastName}`;
   }
+
+  get dbObject(): any {
+    return {
+      firstName: this.firstName,
+      lastName: this.lastName,
+      gender: this.gender,
+      address: this.address,
+      city: this.city,
+    };
+  }
+
 }

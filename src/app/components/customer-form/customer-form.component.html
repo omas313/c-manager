@@ -32,6 +32,43 @@
       Last Name is required
     </div>
   </div>
+
+  <!-- Gender -->
+  <div class="form-group">
+    <div>
+      <label>Gender</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <label class="form-check-label">
+        <input 
+          class="form-check-input" 
+          type="radio" 
+          name="gender" 
+          id="genderMale"
+          [(ngModel)]="customer.gender"
+          #genderMale="ngModel"
+          value="male"
+          required          
+        > 
+          Male
+        </label>
+    </div>
+    <div class="form-check form-check-inline">
+      <label class="form-check-label">
+        <input 
+        class="form-check-input" 
+        type="radio" 
+          name="gender" 
+          id="genderFemale" 
+          #genderFemale="ngModel"          
+          [(ngModel)]="customer.gender"
+          value="female"
+          required
+        > 
+        Female
+      </label>
+    </div>
+  </div>
   
   <!-- Address -->
   <div class="form-group">
@@ -66,7 +103,11 @@
   </div>
 
   <!-- Sumit -->
-  <button type="submit" class="btn btn-accent" [disabled]="form.invalid">
+  <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
     Submit
   </button>
 </form>
+
+<div>
+  {{ customer | json }}
+</div>

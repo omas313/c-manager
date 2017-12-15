@@ -2,12 +2,27 @@
 <div class="content-wrapper">
   <h1>Customer Details</h1>
 
-  <ng-container *ngIf="customer$ | async as customer">
-    <p class="card-text">{{ customer.fullName }}</p>
-    <p class="card-text">{{ customer.gender }}</p>
-    <p class="card-text">{{ customer.address }}</p>
-    <p class="card-text">{{ customer.city }}</p> 
-  </ng-container>
+  <div *ngIf="customer$ | async as customer">
+    <h3 class="card-text">
+      {{ customer.fullName | titlecase}}
+      <a class="link-primary font-16" 
+        [routerLink]="['/customers/edit', customer.key]"
+      >
+        Edit
+      </a>
+    </h3>
+
+
+    <p class="card-text">Gender: {{ customer.gender | titlecase }}</p>
+    <p class="card-text">Address: {{ customer.address }}</p>
+    <p class="card-text">City: {{ customer.city }}</p> 
+    
+    <div>
+      <button class="btn btn-danger" (click)="delete(customer)">
+        Delete
+      </button>
+    </div>
+  </div>
 
 </div>
   

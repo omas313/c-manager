@@ -1,26 +1,26 @@
 
 <div class="content-wrapper">
     
-      <h1>Add a new customer</h1>
+  <h1>Add a new customer</h1>
       
-      <!-- 2 columns -->
-      <div class="row">
-        <!-- form -->
-        <div class="col">
-          <app-customer-form 
-            *ngIf="customer"
-            [customer]="customer" 
-            (submit)="submit($event)"
-          >
-          </app-customer-form>
-        </div>
+  <!-- 2 columns -->
+  <div class="row">
     
-        <!-- card display -->
-        <div class="col">
-          {{ customer | json}}
-        </div>
-    
-      </div> <!-- row -->
-    
+    <!-- form -->
+    <div class="col" *ngIf="customer">
+
+      <app-customer-form 
+        [customer]="customer" 
+        (submit)="submit($event)"
+      >
+      </app-customer-form>
     </div>
+
+    <!-- card display -->
+    <div class="col">
+      <app-customer-card [customer]="customer"></app-customer-card>
+    </div>
+
+  </div> <!-- row -->
     
+</div>

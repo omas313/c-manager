@@ -19,7 +19,7 @@ export class CustomersComponent implements OnInit, OnDestroy {
   filteredCustomers: Customer[];
   
   // view change
-  view = "card";
+  view = "table";
 
   // pagination
   pageLimit = 8;

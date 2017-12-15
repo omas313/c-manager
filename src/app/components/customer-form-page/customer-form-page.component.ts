@@ -1,7 +1,7 @@
 import 'rxjs/add/operator/take';
 
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { CustomerService } from '../../services/customer.service';
 import { Customer } from '../../models/customer';
@@ -18,6 +18,7 @@ export class CustomerFormPageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private customerService: CustomerService 
   ) { }
 
@@ -32,6 +33,13 @@ export class CustomerFormPageComponent implements OnInit {
   }
 
   submit(event) {
-    console.log("form submit data: ", this.customer);
+    if (this.id)
+      this.customerService.update(this.customer);
+    else
+      this.customerService.add(this.customer);
+
+    this.router.navigateByUrl("/customers");
+    // console.log("form submit data: ", this.customer);
   }
+
 }

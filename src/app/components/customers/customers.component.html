@@ -13,17 +13,19 @@
   
   <div class="row m-20">
     <div class="col-md-3">
-      <button class="btn btn-primary" routerLink="/customers/new">New Customer</button>
+      <button class="btn btn-primary" routerLink="/customers/new">
+        New Customer
+      </button>
     </div>
     <div class="col-md-4">
       <div class="btn-group">
-        <button class="btn btn-default" 
+        <button class="btn btn-secondary" 
           [class.highlighted]="view === 'table'" 
           (click)="switchToTable()"
         >
           Table View
         </button>
-        <button class="btn btn-default" 
+        <button class="btn btn-secondary" 
           [class.highlighted]="view === 'card'" 
           (click)="switchToCard()"
         >
@@ -91,14 +93,14 @@
         <div class="btn-group" role="group">
           <!-- 3a - back buttons -->
           <button type="button" 
-            class="btn btn-default"
+            class="btn btn-primary"
             (click)="changePage(1)"
             [disabled]="currentPage === 1"
           >
             &lt;&lt;
           </button>
           <button type="button" 
-            class="btn btn-default"
+            class="btn btn-primary"
             (click)="changePage(currentPage-1)"
             [disabled]="currentPage === 1"
           >
@@ -120,14 +122,14 @@
           
           <!-- 3c - forward buttons -->
           <button type="button" 
-            class="btn btn-default" 
+            class="btn btn-primary" 
             (click)="changePage(currentPage+1)"
             [disabled]="currentPage === numPages"
           >
             &gt;
           </button>
           <button type="button" 
-            class="btn btn-default" 
+            class="btn btn-primary" 
             (click)="changePage(numPages)"
             [disabled]="currentPage === numPages"
           >

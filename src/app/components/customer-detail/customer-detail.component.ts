@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Customer } from '../../models/customer';
 import { CustomerService } from '../../services/customer.service';
@@ -15,6 +15,7 @@ export class CustomerDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private customerService: CustomerService
   ) { }
 
@@ -26,6 +27,13 @@ export class CustomerDetailComponent implements OnInit {
     }
 
     this.customer$ = this.customerService.get(id);
+  }
+
+  delete(customer: Customer) {
+    if (!confirm("Delete " + customer.fullName)) return;
+
+    this.customerService.delete(customer.key);
+    this.router.navigateByUrl("/customers");
   }
 
 }

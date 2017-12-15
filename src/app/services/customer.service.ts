@@ -12,20 +12,24 @@ export class CustomerService {
 
   constructor(private db: AngularFireDatabase) { }
 
+  private get url(): string {
+    return `/databases/${this.dbId}/customers`;
+  }
+
   getAll(): Observable<Customer[]> {
     if (!this.canAccessDb()) return Observable.of(null);
     
-    return this.db.list(`/databases/${this.dbId}/customers`)
-    .snapshotChanges()
-    .map(customers => {
-      return customers.map(c => new Customer({ key: c.key, ...c.payload.val() }));
-    });
+    return this.db.list(this.url)
+      .snapshotChanges()
+      .map(customers => {
+        return customers.map(c => new Customer({ key: c.key, ...c.payload.val() }));
+      });
   }
 
   get(id): Observable<Customer> {
     if (!this.canAccessDb()) return Observable.of(null);
     
-    return this.db.object(`/databases/${this.dbId}/customers/${id}`)
+    return this.db.object(this.url + `/${id}`)
       .snapshotChanges()
       .map(c => new Customer({ key: c.key, ...c.payload.val() }));
   }
@@ -33,13 +37,25 @@ export class CustomerService {
   add(customer: Customer) {
     if (!this.canAccessDb()) return Observable.of(null);
     
-    return this.db.list(`/databases/${this.dbId}/customers`).push(customer);
+    return this.db.list(this.url).push(customer.dbObject);
+  }
+
+  update(customer: Customer) {
+    if (!this.canAccessDb()) return Observable.of(null);
+    
+    return this.db.object(this.url + `/${customer.key}`).update(customer.dbObject);
+  }
+
+  delete(id: string) {
+    if (!this.canAccessDb()) return Observable.of(null);
+    
+    return this.db.object(this.url + `/${id}`).remove();
   }
   
   removeAll() {
     if (!this.canAccessDb()) return Observable.of(null);
     
-    return this.db.object(`/databases/${this.dbId}/customers`).remove();
+    return this.db.object(this.url).remove();
   }
 
   private canAccessDb() {
