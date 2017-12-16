@@ -47,6 +47,7 @@ export class CustomersComponent implements OnInit, OnDestroy {
     this.filteredCustomers = search ? 
       this.customers
         .filter(c => c.fullName.toLowerCase().indexOf(searchTerm) !== -1) : this.customers;
+    
     this.changePage(1);
   }
 
@@ -88,16 +89,12 @@ export class CustomersComponent implements OnInit, OnDestroy {
   }
 
   // TODO: Remove these 
-  log(customers) {
-    console.log(customers);
-  }
-
-  seed() {
-    if (confirm("seed database?")) {
-      this.customerService.removeAll();
-      customersSeed.forEach(c => this.customerService.add(new Customer(c)));
-    }
-  }
+  // seed() {
+  //   if (confirm("seed database?")) {
+  //     this.customerService.removeAll();
+  //     customersSeed.forEach(c => this.customerService.add(new Customer(c)));
+  //   }
+  // }
   // removeAll() {
   //   if (confirm("clear database?"))
   //     this.customerService.removeAll();
