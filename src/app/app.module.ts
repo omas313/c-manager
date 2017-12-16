@@ -25,7 +25,8 @@ import { CustomerFormPageComponent } from './components/customer-form-page/custo
 import { CustomersTableViewComponent } from './components/customers-table-view/customers-table-view.component';
 import { CustomersCardViewComponent } from './components/customers-card-view/customers-card-view.component';
 import { CustomerCardComponent } from './components/customer-card/customer-card.component';
-
+import { AgmCoreModule } from '@agm/core';
+import { CustomersMapViewComponent } from './components/customers-map-view/customers-map-view.component';
 
 @NgModule({
   declarations: [
@@ -40,12 +41,16 @@ import { CustomerCardComponent } from './components/customer-card/customer-card.
     NotFoundComponent,
     CustomersTableViewComponent,
     CustomersCardViewComponent,
-    CustomerCardComponent
+    CustomerCardComponent,
+    CustomersMapViewComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    AngularFireDatabaseModule,    
+    AngularFireDatabaseModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.googleMaps.apiKey
+    }),
     FormsModule,
     ReactiveFormsModule,
     CollapseModule.forRoot(),

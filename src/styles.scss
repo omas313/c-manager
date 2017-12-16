@@ -14,7 +14,7 @@ $dark: #0f1b07;
 $dark-hover: rgb(59, 95, 32);
 $accent: #c6d166;
 $accent-hover: #dfec66;
-$muted: #999;
+$muted: #AAA;
 $shadow: rgba(30, 31, 38, 0.1);
 
 
@@ -220,6 +220,24 @@ button {
     tr {
       background-color: $table-even-bg;
       color: $dark;
+
+      th.sortable:hover {
+        cursor: pointer;
+        background-color: $accent-hover;
+      }
+      // th:hover {
+      //   cursor: pointer;
+      //   background-color: $accent-hover;
+      // }
+      // th:hover {
+      //   cursor: pointer;
+      //   background-color: $accent-hover;
+      // }
+      // th:first-child:hover, 
+      // th:last-child:hover {
+      //   cursor: initial;
+      //   background-color: $table-even-bg;
+      // }
     }
   }
 
@@ -320,6 +338,10 @@ button {
 
 .font-16 {
   font-size: 16px;
+}
+
+agm-map {
+  height: 300px;
 }
 
 //==================================

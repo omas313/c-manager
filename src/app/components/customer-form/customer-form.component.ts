@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { EventEmitter, Component, Input, OnChanges, Output } from '@angular/core';
 import { Customer } from '../../models/customer';
 
 @Component({
@@ -6,10 +6,27 @@ import { Customer } from '../../models/customer';
   templateUrl: './customer-form.component.html',
   styleUrls: ['./customer-form.component.css']
 })
-export class CustomerFormComponent {
+export class CustomerFormComponent implements OnChanges {
 
   @Input("customer") customer: Customer;
+  @Output("formSubmit") formSubmit = new EventEmitter();
 
-  constructor() { }
- 
+  setLocation = false;
+
+  ngOnChanges(changes) {
+    if (this.customer.hasLocation) this.setLocation = true;
+  }
+
+  clickedMap(event) {
+    this.customer.location = {
+      latitude: event.coords.lat,
+      longitude: event.coords.lng
+    };   
+  }
+
+  submit() {
+    if (!this.setLocation) delete this.customer.location;
+    this.formSubmit.emit(null);
+  }
+
 }

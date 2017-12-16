@@ -1,7 +1,7 @@
 
 <div class="content-wrapper">
     
-  <h1>Add a new customer</h1>
+  <h1>Customer Form</h1>
       
   <!-- 2 columns -->
   <div class="row">
@@ -11,7 +11,7 @@
 
       <app-customer-form 
         [customer]="customer" 
-        (submit)="submit($event)"
+        (formSubmit)="submit()"
       >
       </app-customer-form>
     </div>

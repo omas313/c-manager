@@ -1,0 +1,27 @@
+
+<div class="row">
+
+  <div class="col-8">
+    <agm-map [zoom]="1">
+      <agm-marker 
+        *ngFor="let c of customersWithLocation"
+        [latitude]="c.location.latitude" 
+        [longitude]="c.location.longitude"
+        [title]="c.fullName"
+        [label]="c.firstName[0].toUpperCase()"
+        (markerClick)="clickedMarker(c)"
+      >
+      </agm-marker>
+    </agm-map>
+  </div>
+
+  <div class="col-4">
+    <div *ngIf="visibleCard && cardCustomer; else noChoice">
+      <app-customer-card [customer]="cardCustomer"></app-customer-card>
+    </div>
+    <ng-template #noChoice>
+      <div>Click a marker to view the customer card</div>
+    </ng-template>
+  </div>
+
+</div>

@@ -2,25 +2,40 @@
 <div class="content-wrapper">
   <h1>Customer Details</h1>
 
-  <div *ngIf="customer$ | async as customer">
-    <h3 class="card-text">
-      {{ customer.fullName | titlecase}}
-      <a class="link-primary font-16" 
-        [routerLink]="['/customers/edit', customer.key]"
-      >
-        Edit
-      </a>
-    </h3>
-
-
-    <p class="card-text">Gender: {{ customer.gender | titlecase }}</p>
-    <p class="card-text">Address: {{ customer.address }}</p>
-    <p class="card-text">City: {{ customer.city }}</p> 
-    
-    <div>
-      <button class="btn btn-danger" (click)="delete(customer)">
-        Delete
-      </button>
+  <div class="row" *ngIf="customer$ | async as customer">
+    <!-- info -->
+    <div class="col">
+      <h3 class="card-text">
+        {{ customer.fullName | titlecase}}
+        <a class="link-primary font-16" 
+          [routerLink]="['/customers/edit', customer.key]"
+        >
+          Edit
+        </a>
+      </h3>
+  
+      <p class="card-text">Gender: {{ customer.gender | titlecase }}</p>
+      <p class="card-text">Address: {{ customer.address }}</p>
+      <p class="card-text">City: {{ customer.city }}</p> 
+      
+      <div>
+        <button class="btn btn-danger" (click)="delete(customer)">
+          Delete
+        </button>
+      </div>
+    </div>
+    <!-- map -->
+    <div class="col">
+      <div class="location" *ngIf="customer.hasLocation; else noLocation">
+        <agm-map [latitude]="customer.location.latitude" [longitude]="customer.location.longitude">
+          <agm-marker [latitude]="customer.location.latitude" [longitude]="customer.location.longitude"></agm-marker>
+        </agm-map>
+      </div>
+      <ng-template #noLocation>
+        <div>
+          <h4>No location specified</h4>
+        </div>
+      </ng-template>
     </div>
   </div>
 

@@ -39,6 +39,7 @@ export class CustomersComponent implements OnInit, OnDestroy {
 
   switchToTable() { this.view = "table"; }
   switchToCard() { this.view = "card"; }
+  switchToMap() { this.view = "map"; }
 
   filter(search: string) {
     const searchTerm = search.toLowerCase();
@@ -86,19 +87,20 @@ export class CustomersComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-
   // TODO: Remove these 
   log(customers) {
     console.log(customers);
   }
 
   seed() {
-    if (confirm("seed database?"))
-      customersSeed.forEach(c => this.customerService.add(c));
-  }
-  removeAll() {
-    if (confirm("clear database?"))
+    if (confirm("seed database?")) {
       this.customerService.removeAll();
+      customersSeed.forEach(c => this.customerService.add(new Customer(c)));
+    }
   }
+  // removeAll() {
+  //   if (confirm("clear database?"))
+  //     this.customerService.removeAll();
+  // }
 
 }

@@ -23,13 +23,19 @@
           [class.highlighted]="view === 'table'" 
           (click)="switchToTable()"
         >
-          Table View
+          Table
         </button>
         <button class="btn btn-secondary" 
           [class.highlighted]="view === 'card'" 
           (click)="switchToCard()"
         >
-          Card View
+          Cards
+        </button>
+        <button class="btn btn-secondary" 
+          [class.highlighted]="view === 'map'" 
+          (click)="switchToMap()"
+        >
+          Map
         </button>
       </div>
     </div>
@@ -60,14 +66,23 @@
         [paginatedIndices]="paginatedIndices"
         [currentPage]="currentPage"
         [pageLimit]="pageLimit"
-        ></app-customers-table-view>
+        >
+      </app-customers-table-view>
+      
       <app-customers-card-view *ngSwitchCase="'card'"
         [customers]="filteredCustomers"
         [paginatedIndices]="paginatedIndices"
-      ></app-customers-card-view>
+      >
+      </app-customers-card-view>
+      
+      <app-customers-map-view *ngSwitchCase="'map'"
+        [customers]="filteredCustomers"
+      >
+      </app-customers-map-view>
+
     </div>
     <!-- pagination -->
-    <div class="row full-width m0" *ngIf="customers && customers.length > 0">
+    <div class="row full-width m0" *ngIf="customers && customers.length > 0" [hidden]="view === 'map'">
         
       <!-- 1 - results -->
       <div class="col-md-3 grid-centered">
@@ -78,12 +93,12 @@
       <div class="col-md-3">
         <div class="col-auto">
           <div class="input-group mb-2 mb-sm-0">
-            <div class="input-group-addon">Limit:</div>
             <input type="number" 
               class="form-control"
               min="1"          
               [(ngModel)]="pageLimit"
               (change)="changePage(currentPage)">
+            <div class="input-group-addon">per page</div>
           </div>
         </div>
       </div>

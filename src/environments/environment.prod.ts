@@ -7,5 +7,8 @@ export const environment = {
     projectId: "c-manager-313",
     storageBucket: "",
     messagingSenderId: "394703420910"
+  },
+  googleMaps: {
+    apiKey: "AIzaSyCUfl2kjupWzonsVLT4TcawwbkFaw0LONI"
   }
 };

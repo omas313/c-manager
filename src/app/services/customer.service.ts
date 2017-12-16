@@ -43,7 +43,7 @@ export class CustomerService {
   update(customer: Customer) {
     if (!this.canAccessDb()) return Observable.of(null);
     
-    return this.db.object(this.url + `/${customer.key}`).update(customer.dbObject);
+    return this.db.object(this.url + `/${customer.key}`).set(customer.dbObject);
   }
 
   delete(id: string) {

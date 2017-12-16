@@ -32,7 +32,7 @@ export class CustomerFormPageComponent implements OnInit {
         .subscribe(c => this.customer = c);
   }
 
-  submit(event) {
+  submit() {
     if (this.id)
       this.customerService.update(this.customer);
     else

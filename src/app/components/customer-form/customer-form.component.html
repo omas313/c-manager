@@ -1,5 +1,5 @@
 
-<form #form="ngForm">
+<form #form="ngForm" (ngSubmit)="submit()">
     
   <!-- First Name -->
   <div class="form-group">
@@ -56,8 +56,8 @@
     <div class="form-check form-check-inline">
       <label class="form-check-label">
         <input 
-        class="form-check-input" 
-        type="radio" 
+          class="form-check-input" 
+          type="radio" 
           name="gender" 
           id="genderFemale" 
           #genderFemale="ngModel"          
@@ -101,6 +101,39 @@
       City is required
     </div>
   </div>
+  
+  <!-- Location -->
+  <div class="form-group">
+    <div class="form-check form-check-inline">
+      <label class="form-check-label">
+        <input 
+          type="checkbox"
+          class="form-check-input" 
+          id="setLocation"
+          name="setLocation"
+          [(ngModel)]="setLocation"
+        > 
+          Map Location
+        </label>
+    </div>
+    <div class="map" *ngIf="setLocation">
+      <agm-map 
+        [latitude]="customer.hasLocation ? customer.location.latitude : 0" 
+        [longitude]="customer.hasLocation ? customer.location.longitude : 0"
+        [zoom]="1"
+        (mapClick)="clickedMap($event)"
+      >
+        <agm-marker 
+          [latitude]="customer.location?.latitude || 0" 
+          [longitude]="customer.location?.longitude || 0"
+        >
+        </agm-marker>
+      </agm-map>
+    </div>
+    
+  </div>
+
+
 
   <!-- Sumit -->
   <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
