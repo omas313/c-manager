@@ -1,43 +1,122 @@
 
 <div class="content-wrapper">
-  <h1>Customer Details</h1>
 
-  <div class="row" *ngIf="customer$ | async as customer">
-    <!-- info -->
-    <div class="col">
-      <h3 class="card-text">
-        {{ customer.fullName | titlecase}}
-        <a class="link-primary font-16" 
-          [routerLink]="['/customers/edit', customer.key]"
-        >
+  <ng-container *ngIf="customer$ | async as customer">
+
+    <div class="row">
+      <div class="col">
+        <h1 class="card-text">{{ customer.fullName | titlecase}}</h1>
+      </div>
+      <div class="col">
+        <button class="btn-primary btn" [routerLink]="['/customers/edit', customer.key]">
           Edit
-        </a>
-      </h3>
-  
-      <p class="card-text">Gender: {{ customer.gender | titlecase }}</p>
-      <p class="card-text">Address: {{ customer.address }}</p>
-      <p class="card-text">City: {{ customer.city }}</p> 
-      
-      <div>
-        <button class="btn btn-danger" (click)="delete(customer)">
+        </button>
+        <button class="btn-danger btn" (click)="delete(customer)">
           Delete
         </button>
       </div>
     </div>
-    <!-- map -->
-    <div class="col">
-      <div class="location" *ngIf="customer.hasLocation; else noLocation">
-        <agm-map [latitude]="customer.location.latitude" [longitude]="customer.location.longitude">
-          <agm-marker [latitude]="customer.location.latitude" [longitude]="customer.location.longitude"></agm-marker>
-        </agm-map>
-      </div>
-      <ng-template #noLocation>
-        <div>
-          <h4>No location specified</h4>
-        </div>
-      </ng-template>
+    
+    <!-- button group -->
+    <div class="btn-group">
+      <button 
+        class="btn btn-secondary" 
+        [class.highlighted]="view === 'details'" 
+        (click)="switchToDetails()"
+      >
+        Details
+      </button>
+      <button 
+        class="btn btn-secondary" 
+        [class.highlighted]="view === 'orders'" 
+        (click)="switchToOrders()"
+      >
+        Orders
+      </button>
     </div>
-  </div>
+
+    <!-- view -->
+    <div [ngSwitch]="view">
+    
+      <!-- Info and map -->
+      <div class="row" *ngSwitchCase="'details'">
+        <!-- info -->
+        <div class="col">
+          <p>Gender: {{ customer.gender | titlecase }}</p>
+          <p>Address: {{ customer.address }}</p>
+          <p>City: {{ customer.city }}</p> 
+        </div>
+        <!-- map -->
+        <div class="col">
+          <div class="location" *ngIf="customer.hasLocation; else noLocation">
+            <agm-map [latitude]="customer.location.latitude" [longitude]="customer.location.longitude">
+              <agm-marker [latitude]="customer.location.latitude" [longitude]="customer.location.longitude"></agm-marker>
+            </agm-map>
+          </div>
+          <ng-template #noLocation>
+            <div>
+              <h4>No location specified</h4>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    
+      <!-- Orders -->
+      <div *ngSwitchCase="'orders'">
+        <ng-container *ngIf="orders$ | async as orders">
+          <accordion *ngIf="orders.length > 0; else noOrders">
+            <accordion-group *ngFor="let order of orders" [isOpen]="order.key === openOrderId">
+              <div accordion-heading class="clearfix">
+                <div class="row">
+                  <div class="col">
+                    {{ order.date | customDate:true }}
+                  </div>
+                  <div class="col">
+                    <strong>{{ order.totalPrice | currency:'USD':'.2-2'}}</strong>
+                    <span class="badge badge-secondary float-right pull-right">
+                      {{ order.totalQuantity }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+    
+              <!-- items -->
+              <table class="table table-custom-striped">
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of order.items">
+                    <td>{{ item.name | titlecase}}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.totalPrice | currency:'USD':'.2-2'}}</td>
+                  </tr>
+                </tbody>
+                <tfoot class="font-weight-bold">
+                  <tr>
+                    <td>Total</td>
+                    <td>{{ order.totalQuantity }}</td>
+                    <td>{{ order.totalPrice | currency:'USD':'.2-2'}}</td>
+                  </tr>
+                </tfoot>
+              </table>
+    
+            </accordion-group>
+          </accordion>
+    
+          <ng-template #noOrders>
+            <h4>No orders</h4>
+          </ng-template>
+        </ng-container>
+      </div>
+
+    </div>
+
+  </ng-container>
 
 </div>
   

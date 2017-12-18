@@ -29,9 +29,8 @@ export class AppComponent {
       // then save the data in db
       this.userService.save(user);
 
-      // init db if an id is not present
-      if (!localStorage.getItem("dbId"))
-        this.dbService.init(user.uid);
+      // init db connection
+      this.dbService.init(user.uid);
       
       // check for redirect url
       const returnUrl = localStorage.getItem("returnUrl");

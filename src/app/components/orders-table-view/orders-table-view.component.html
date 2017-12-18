@@ -1,0 +1,37 @@
+
+<table class="table table-custom-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th class="sortable" (click)="sort('date')">
+        Date
+      </th>
+      <th class="sortable" (click)="sort('customerName')">
+        Customer
+      </th>
+      <th class="sortable" (click)="sort('totalPrice')">
+        Price
+      </th>
+      <th class="sortable" (click)="sort('totalQuantity')">
+        Items
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody *ngIf="orders && orders.length > 0">
+    <tr *ngFor="let i of paginatedIndices; let t = index">
+      <td>{{ t + 1 + (currentPage - 1 ) * pageLimit}}</td>
+      <td>{{ orders[i].date | customDate }}</td>
+      <td>{{ orders[i].customerName }}</td>
+      <td>{{ orders[i].totalPrice | currency:'USD':'.2-2' }}</td>
+      <td>{{ orders[i].totalQuantity }}</td>
+      <td>
+        <a [routerLink]="['/customers/details', orders[i].customerId]"
+           [queryParams]="{ orderId: orders[i].key }"
+        >
+          View
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>

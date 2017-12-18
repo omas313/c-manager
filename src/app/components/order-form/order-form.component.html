@@ -1,0 +1,153 @@
+
+<div class="content-wrapper">
+    
+  <h1>Order Form</h1>
+
+    <!-- form -->
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+      <!-- customer -->
+      <ng-container *ngIf="customers">
+        <div class="form-group">
+          <label for="customer">Customer</label>
+          <div class="row">
+            <div class="col">
+              <input 
+                type="text"
+                class="form-control"
+                name="customerNameFilter"
+                formControlName="customerNameFilter"
+                placeholder="Search by name"
+              >
+            </div>
+            <div class="col" *ngIf="filteredNames" class="text-muted">
+              Found {{ filteredNames.length }}
+            </div>
+          </div>
+          <select
+            *ngIf="filteredNames"
+            class="form-control"
+            name="customer"
+            formControlName="customer"
+            [class.completed]="customer.valid"
+          >
+            <option value="">Choose customer</option>
+            <option *ngFor="let name of filteredNames" [value]="name">
+              {{ name | titlecase}}
+            </option>
+          </select>
+          <div class="alert-danger alert" *ngIf="customers.length === 0">
+            No customers in the database. Order can't be created.
+          </div>
+          <div class="alert-danger alert" *ngIf="customer.touched && customer.errors?.required">
+            Must choose a customer
+          </div>
+        </div>
+      </ng-container>
+  
+      <!-- items -->
+      <div formArrayName="items" class="form-group">
+        <label for="items">Items</label>
+        <!-- Top row -->
+        <div class="row" *ngIf="items.controls.length > 0">
+          <div class="col">Name</div>
+          <div class="col">Price</div>
+          <div class="col">Quantity</div>
+          <div class="col">Total</div>
+          <div class="col"></div>
+        </div>
+        <!-- array list -->
+        <div 
+          class="form-group" 
+          *ngFor="let item of items.controls; let i=index" 
+          [formGroupName]="i"
+        >
+          <!-- main division -->
+          <div class="row">
+  
+            <!-- name -->
+            <div class="col">
+              <input 
+                type="text"
+                class="form-control"
+                [class.completed]="getItemNameAt(i).valid"
+                name="name"
+                formControlName="name"
+                placeholder="Enter Name"
+              >
+              <div class="alert alert-danger" *ngIf="getItemNameAt(i).touched && getItemNameAt(i).errors?.required">
+                Name is required
+              </div>
+            </div>
+  
+            <!-- price -->
+            <div class="col">
+              <input 
+                type="number"
+                class="form-control"
+                [class.completed]="getItemPriceAt(i).valid"
+                name="price"
+                formControlName="price"
+              >
+              <div class="alert alert-danger" *ngIf="getItemPriceAt(i).touched && getItemPriceAt(i).errors?.required">
+                Price is required
+              </div>
+              <div class="alert alert-danger" *ngIf="getItemPriceAt(i).errors?.min">
+                Minimum price is {{ getItemPriceAt(i).errors.min.min }}
+              </div>
+            </div>
+  
+            <!-- quantity -->
+            <div class="col">
+              <input 
+                type="number"
+                class="form-control"
+                [class.completed]="getItemQuantityAt(i).valid"
+                name="quantity"
+                step="1"
+                formControlName="quantity"
+              >
+              <div class="alert alert-danger" *ngIf="getItemQuantityAt(i).touched && getItemQuantityAt(i).errors?.required">
+                Quantity is required
+              </div>
+              <div class="alert alert-danger" *ngIf="getItemQuantityAt(i).errors?.min">
+                Minimum quantity is {{ getItemQuantityAt(i).errors.min.min }}
+              </div>
+            </div>
+  
+            <!-- total price  -->
+            <div class="col">
+              <div *ngIf="getItemPriceAt(i).valid && getItemQuantityAt(i).valid">
+                {{ getItemTotalPriceAt(i) | currency:'USD':'.2-2' }}
+              </div>
+            </div>
+  
+            <!-- remove button -->
+            <div class="col">
+              <a class="link-danger" (click)="removeItemAt(i)">Remove</a>
+            </div>
+          </div>
+        </div> <!-- ngFor -->
+    
+        <br>
+        <div *ngIf="items.length > 0">
+          <hr>
+          <div class="row">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col">
+              Total: {{ getItemsTotalPrice() | currency:'USD':'.2-2' }}
+            </div>
+            <div class="col"></div>
+          </div>
+        </div>
+        <button class="btn btn-secondary" type="button" (click)="addItem()">Add Item</button>
+      </div>
+      
+      <button class="btn btn-primary" type="submit" [disabled]="form.invalid">
+        Submit
+      </button>
+    </form>
+
+
+</div>  

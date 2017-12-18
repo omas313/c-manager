@@ -12,6 +12,8 @@ $primary: #5c821a;
 $primary-hover: rgb(138, 189, 44);
 $dark: #0f1b07;
 $dark-hover: rgb(59, 95, 32);
+$danger: #a01d26;
+$danger-hover: #c92e38;
 $accent: #c6d166;
 $accent-hover: #dfec66;
 $muted: #AAA;
@@ -256,6 +258,12 @@ button {
 // Inputs
 //==================================
 
+
+input.completed, 
+select.completed {
+  border-left-color: $primary !important;
+}
+
 .input-group-addon {
   color: $dark;
 }
@@ -317,18 +325,31 @@ button {
 
 .link-light {
   color: $light !important;
-
+  
   &:hover {
     text-decoration: none !important;
+    color: $light-hover !important;
+    cursor: pointer;
   }
 }
 
 .link-primary {
   color: $primary !important;
-
+  
   &:hover {
     text-decoration: none !important;
     color: $primary-hover !important;
+    cursor: pointer;
+  }
+}
+
+.link-danger {
+  color: $danger !important;
+  
+  &:hover {
+    text-decoration: none !important;
+    color: $danger-hover !important;
+    cursor: pointer;
   }
 }
 
@@ -342,6 +363,24 @@ button {
 
 agm-map {
   height: 300px;
+}
+
+accordion-group {
+  max-width: 700px;
+  color: $dark;
+
+  &:hover {
+    cursor: pointer;
+  }
+  
+  .panel-heading {
+    background-color: $light;
+  }
+
+  .badge {
+    background-color: $primary;
+    color: $light;
+  }
 }
 
 //==================================

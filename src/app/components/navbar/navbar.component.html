@@ -18,9 +18,14 @@
       <ul class="navbar-nav mr-auto mt-lg-0">
 
         <!-- Customers -->
-        <li class="nav-item" routerLinkActive="customers" (click)="toggleIfOpen()">
+        <li *ngIf="appUser" class="nav-item" routerLinkActive="customers" (click)="toggleIfOpen()">
           <a class="nav-link" [routerLink]="['/customers']">
             Customers
+          </a>
+        </li>
+        <li *ngIf="appUser" class="nav-item" routerLinkActive="orders" (click)="toggleIfOpen()">
+          <a class="nav-link" [routerLink]="['/orders']">
+            Orders
           </a>
         </li>
 

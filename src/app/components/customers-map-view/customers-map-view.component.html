@@ -20,7 +20,12 @@
       <app-customer-card [customer]="cardCustomer"></app-customer-card>
     </div>
     <ng-template #noChoice>
-      <div>Click a marker to view the customer card</div>
+      <ng-container *ngIf="customers && customersWithLocation.length > 0; else noLocations">
+        <div>Click a marker to view the customer card.</div>
+      </ng-container>
+      <ng-template #noLocations>
+        <div>None of your customers has a location specified.</div>
+      </ng-template>
     </ng-template>
   </div>
 

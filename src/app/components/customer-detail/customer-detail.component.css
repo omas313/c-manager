@@ -2,3 +2,7 @@
 agm-map {
   height: 400px;
 }
+
+.row, .btn-group {
+  margin-bottom: 30px;
+}

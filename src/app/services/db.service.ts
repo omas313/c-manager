@@ -12,10 +12,6 @@ export class DbService {
   constructor(private db: AngularFireDatabase) { }
 
   init(userId) {
-    // check if theres already a dbID in localstorage
-    const dbId = localStorage.getItem(this.key);
-    if (dbId) return;
-
     // check if this user has a db
     this.db.object(`/users/${userId}/${this.key}`)
       .valueChanges()
@@ -31,7 +27,7 @@ export class DbService {
       .push({ userId: userId })
       .then((results: any) => {
         this.db.object(`/users/${userId}`)
-        .update({ [this.key]: results.key });
+          .update({ [this.key]: results.key });
         localStorage.setItem(this.key, results.key);
       });
   }

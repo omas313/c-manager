@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Customer } from '../../models/customer';
 import { CustomerService } from '../../services/customer.service';
+import { OrderService } from '../../services/order.service';
+import { Order } from '../../models/order';
 
 @Component({
   selector: 'app-customer-detail',
@@ -12,11 +14,16 @@ import { CustomerService } from '../../services/customer.service';
 export class CustomerDetailComponent implements OnInit {
 
   customer$: Observable<Customer>;
+  orders$: Observable<Order[]>;
+
+  view = "details";
+  openOrderId: string;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private orderService: OrderService
   ) { }
 
   ngOnInit() {
@@ -27,7 +34,16 @@ export class CustomerDetailComponent implements OnInit {
     }
 
     this.customer$ = this.customerService.get(id);
+    this.orders$ = this.orderService.getOrdersForCustomer(id);
+
+    const orderId = this.route.snapshot.queryParamMap.get("orderId");
+    if (!orderId) return;
+    this.switchToOrders();
+    this.openOrderId = orderId;
   }
+
+  switchToDetails() { this.view = "details"; }
+  switchToOrders() { this.view = "orders"; }
 
   delete(customer: Customer) {
     if (!confirm("Delete " + customer.fullName)) return;
